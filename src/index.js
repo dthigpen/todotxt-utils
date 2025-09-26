@@ -209,62 +209,65 @@ export function isCompleted(task) {
 /**
  * Extract the completion date (if present).
  * @param {string} task - A todo.txt task line.
- * @returns {string|null} Completion date (YYYY-MM-DD) or null.
+ * @returns {{ value: string, raw: string, start: number, end: number } | null}
  */
 export function getCompletionDate(task) {
   const match = /^\s*x\s(\d{4}-\d{2}-\d{2})/.exec(task);
-  return match ? match[1] : null;
+  if (!match) return null;
+
+  const start = match.index + match[0].indexOf(match[1]);
+  const end = start + match[1].length;
+  return {
+    value: match[1],
+    raw: match[0],
+    start,
+    end
+  };
 }
 
 /**
  * Extract the creation date (if present).
  * @param {string} task - A todo.txt task line.
- * @returns {string|null} Creation date (YYYY-MM-DD) or null.
+ * @returns {{ value: string, raw: string, start: number, end: number } | null}
  */
 export function getCreationDate(task) {
-  // Skip leading "x date" if completed, then look for next date
-  const stripped = task.replace(/^\s*x\s\d{4}-\d{2}-\d{2}\s*/, "");
+  // Skip leading "x date" if completed
+  const strippedPrefix = task.match(/^(?:\s*x\s\d{4}-\d{2}-\d{2}\s*)?/)[0];
+  const stripped = task.slice(strippedPrefix.length);
+
   const match = /^\s*(\d{4}-\d{2}-\d{2})/.exec(stripped);
-  return match ? match[1] : null;
+  if (!match) return null;
+
+  const start = strippedPrefix.length + match.index + match[0].indexOf(match[1]);
+  const end = start + match[1].length;
+
+  return {
+    value: match[1],
+    raw: match[0],
+    start,
+    end
+  };
 }
 
 /**
  * Get priority (if present, in form "(A)").
  * @param {string} task - A todo.txt task line.
- * @returns {string|null} Priority letter, e.g. "A", or null if none.
+ * @returns {{ value: string, raw: string, start: number, end: number } | null}
  */
 export function getPriority(task) {
   const match = /^\s*\(([A-Z])\)\s/.exec(task);
-  return match ? match[1] : null;
-}
+  if (!match) return null;
 
-/**
- * Get the value for a specific key.
- * @param {string} task - A todo.txt task line.
- * @param {string} key - Key to search for.
- * @returns {string|null} Value if found, otherwise null.
- */
-export function getValue(task, key) {
-  const kvs = getKeyValues(task, {withSpans: true});
-  const match = kvs.find(kv => kv.key === key)
-  return match !== undefined ? match.value : null
-}
+  const start = match.index + match[0].indexOf(match[1]);
+  const end = start + match[1].length;
 
-/**
- * Remove a key:value pair from the task string.
- * @param {string} task - A todo.txt task line.
- * @param {string} key - Key to remove.
- * @returns {string} New task string without the key.
- */
-export function removeKey(task, key) {
-	const kvs = getKeyValues(task, {withSpans: true});
-  const span = kvs.find(kv => kv.key === key)
-  if(span) {
-  	task = removeSpans(task, [span])
-  }
-  return task;
+  return {
+    value: match[1],
+    raw: match[0],
+    start,
+    end
+  };
 }
-
 /**
  * Replace or add a key:value pair in the task string.
  * @param {string} task - A todo.txt task line.
