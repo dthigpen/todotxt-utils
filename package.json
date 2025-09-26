@@ -1,6 +1,6 @@
 {
   "name": "todotxt-utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Helper functions for parsing todo.txt formatted tasks and performing common operations like sorting",
   "type": "module",
   "main": "src/index.js",
