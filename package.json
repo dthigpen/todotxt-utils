@@ -1,0 +1,21 @@
+{
+  "name": "todotxt-utils",
+  "version": "0.1.0",
+  "description": "Helper functions for parsing todo.txt formatted tasks and performing common operations like sorting",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node src/test.js"
+  },
+  "keywords": [
+    "todo.txt",
+    "todotxt",
+    "todo",
+    "task",
+    "utils",
+    "plaintext",
+    "plain-text"
+  ],
+  "author": "David Thigpen",
+  "license": "MIT"
+}
