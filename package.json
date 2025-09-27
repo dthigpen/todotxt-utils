@@ -1,21 +1,29 @@
 {
-  "name": "todotxt-utils",
-  "version": "0.1.1",
-  "description": "Helper functions for parsing todo.txt formatted tasks and performing common operations like sorting",
-  "type": "module",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "node src/test.js"
-  },
-  "keywords": [
-    "todo.txt",
-    "todotxt",
-    "todo",
-    "task",
-    "utils",
-    "plaintext",
-    "plain-text"
-  ],
-  "author": "David Thigpen",
-  "license": "MIT"
+    "name": "todotxt-utils",
+    "version": "0.1.1",
+    "description": "Helper functions for parsing todo.txt formatted tasks and performing common operations like sorting",
+    "type": "module",
+    "main": "src/index.js",
+    "scripts": {
+        "test": "node src/test.js",
+        "format": "prettier --write .",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix"
+    },
+    "keywords": [
+        "todo.txt",
+        "todotxt",
+        "todo",
+        "task",
+        "utils",
+        "plaintext",
+        "plain-text"
+    ],
+    "author": "David Thigpen",
+    "license": "MIT",
+    "devDependencies": {
+        "eslint": "^9.36.0",
+        "eslint-config-prettier": "^10.1.8",
+        "prettier": "^3.6.2"
+    }
 }
